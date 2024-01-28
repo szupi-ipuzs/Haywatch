@@ -78,8 +78,9 @@ async fn main() -> Result<(), Box<dyn Error>> {
             for peripheral in &peripherals {
                 let properties = peripheral.properties().await?;
                 let is_connected = peripheral.is_connected().await?;
+                let local_name = &properties.as_ref().unwrap().local_name;
 
-                if let Some(local_name) = &properties.as_ref().unwrap().local_name && local_name == ls02::WATCH_DEVICE_NAME {
+                if local_name.is_some() && local_name.clone().unwrap() == ls02::WATCH_DEVICE_NAME {
                     println!("[haywatch.Main] Found {}! (already connected: {}) --- MAC: {}", ls02::WATCH_DEVICE_NAME, is_connected, properties.as_ref().unwrap().address);
 
                     let is_connected = peripheral.is_connected().await?;
