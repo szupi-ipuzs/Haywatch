@@ -65,7 +65,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     for adapter in adapter_list.iter() {
         println!("Starting scan...");
-        let scan_filter = ScanFilter { services: vec![uuid!("000055FF-0000-1000-8000-00805F9B34FB")] };
+//        let scan_filter = ScanFilter { services: vec![uuid!("000055FF-0000-1000-8000-00805F9B34FB")] };
+        let scan_filter = ScanFilter::default();
         adapter.start_scan(scan_filter).await.expect("[haywatch.Main] ERROR: Can't scan BLE adapter for connected devices...");
         time::sleep(Duration::from_secs(2)).await;
 
